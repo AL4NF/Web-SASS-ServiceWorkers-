@@ -1,3 +1,73 @@
-body{
-  background-color: darkBlue;
+@import './modules/_variables.scss';
+@import './modules/_mixins.scss';
+
+
+img{
+  max-width: 100%
+}
+figure{
+  position: relative;
+  max-height: 100%;
+  margin: 0px;
+  //selector anidado
+  figcaption{
+    padding: $large-padding; //estamos importando el estilo desde _variables.scss
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 2em;
+    position: absolute;
+    left: 10px;
+    bottom: 0px;
+    width: auto;
+    z-index: 2;
+    @include text-center; //estamos importando un mixin
+    color: $red;
+  }
+  //el '&' hace referencia al selector en donde nos encotramos, en este caso a 'figure'
+  &:hover{
+
+  }
+}
+
+//grid es una manera de dividir en tablas nuestra pagina
+.grid{
+  //@include full; // estamos importando el mixin llamado full(para cambiar caracteristcas desde otro archivo sass)
+  display: grid;
+  //grid-template-columns: 250px 250px; nos agrega 2 columnas de 250px c/u
+  grid-template-columns: repeat(12,1fr); //propiedad que nos agrega 12 columnas(lo usa bootstrap)
+}
+
+.main-text{
+  grid-area: title;
+  //grid-column: 1 / 5; //es una shorthand, primero indicamos en donde empieza el texto y lueo en dpmde finaliza
+}
+.main-image{
+  grid-area: image;
+  //grid-column-start: 5; //le indicamos que la imagen empezara en la columna 5
+  //grid-column-end: 12; //le indiamos que la imagen termia en la comuna 12
+}
+
+.container{
+  grid-column: span 12;//le indicamos al contenedor que ocupe las 12 columnas que existen
+  padding: $big-padding;
+}
+
+.grid-main-area{
+  display: grid;
+  grid-template-columns: repeat(9,1fr);
+  grid-template-areas: //nospermite definir las areas de nuestro elemento, c/u de las areas se coloca en un to-upper-case($string);
+    "title title title title title title title title title"
+    "image image image image image image image image image ";
+}
+
+@media (min-width: 960px) {
+  .container{
+    grid-column: 2 / 12; //le indicamos que empiece en la columnas 2 y termine en la 12
+  }
+  .grid-main-area{
+    display: grid;
+    grid-template-columns: repeat(9,1fr);
+    grid-template-areas: //nospermite definir las areas de nuestro elemento, c/u de las areas se coloca en un to-upper-case($string);
+      " title title title image image image image image image"
+  }
 }
