@@ -3,8 +3,16 @@
   width: 100%;
   height: 100%;
 }
+@mixin main-text{
+  font-weight: 200; //cambiamos a un menor grosor de letra
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
 @mixin text-center{
   text-align: center;
+}
+@mixin text-right{
+  text-align: right;
 }
 @mixin center-vertical-horizontal{
   display: flex;
@@ -13,7 +21,18 @@
 }
 @mixin absolute-cover{
    @include full;
-   position: absolute;
-   left: 0px;
-   right: 0px;
+}
+@mixin caption{
+  padding: $large-padding; //estamos importando el estilo desde _variables.scss
+  letter-spacing: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 2em;
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+  width: auto;
+  z-index: 2;
+  @include text-center; //estamos importando un mixin
+  color:rgba($white,9);
 }
