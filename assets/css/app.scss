@@ -4,6 +4,10 @@
 @import './modules/_variables.scss';
 @import './modules/_mixins.scss';
 
+*{
+  margin: 0;
+  padding: 0;
+}
 
 body{
   font-family: 'Source Sans Pro', sans-serif;
@@ -58,6 +62,86 @@ figure{
   //grid-template-columns: 250px 250px; nos agrega 2 columnas de 250px c/u
   grid-template-columns: repeat(12,1fr); //propiedad que nos agrega 12 columnas(lo usa bootstrap)
 }
+
+.menu{
+  position: fixed;
+  top:2em;
+  right: 2em;
+  height: 60px;
+  width: 60px;
+  @include transition;
+  transition-duration: 0.15s;
+  cursor: pointer;
+  &:hover{
+    background-color: lightblue;
+  }
+}
+
+.menu-screen{
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 4;
+  top:-101vh;
+  @include transition;
+  @include center-vertical-horizontal
+
+  .close{
+    position: absolute;
+    top:1em;
+    right: 1em;
+    img{
+      width: 45px;
+    }
+  }
+
+  &.active{
+    top:0;
+
+  }
+  a{
+    text-decoration: none;
+    display: block;
+    @include text-center;
+    position: relative;
+    margin-top: 1em;
+    &:first-of-type{margin-top: 0}
+    .main{
+      display: block;
+      font-size: 2em;
+      color:blue;
+    }
+    span:not(.main){
+      @include transition;
+      transition-duration: 0.2s;
+      color:darkblue;
+      opacity: 0;
+   }
+   &::after{
+     content:'';
+     position: absolute;
+     top: 1.2em;
+     left:0;
+     width: 100%;
+     height: 2px;
+     background-color: red;
+     @include transition;
+     transition-duration: 0.2s;
+     transform: scale(0);
+   }
+   &:hover span.main{
+     color: black;
+   }
+   &:hover::after{
+     transform: scale(1);
+   }
+   &:hover span:not(.main){
+     opacity: 1;
+   }
+  }
+}
+
 .container{
   grid-column: span 12;//le indicamos al contenedor que ocupe las 12 columnas que existen
   // padding: $big-padding;
@@ -94,8 +178,8 @@ figure{
 .grid-main-area{
   display: grid;
   grid-template-columns: repeat(9,1fr);
-  margin-top: $big-margin-top;
-  margin-bottom: $big-margin-top;
+   margin-top: $big-margin-top;
+  margin-bottom: $default-margin-top;
   grid-template-areas: //nospermite definir las areas de nuestro elemento, c/u de las areas se coloca en un to-upper-case($string);
     "title title title title title title title title title"
     "image image image image image image image image image ";
@@ -206,6 +290,7 @@ figure{
     }
   }
 }
+
 
 .social{
   margin-top: $big-margin-top;
