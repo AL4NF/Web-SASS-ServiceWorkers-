@@ -7,6 +7,12 @@
   font-weight: 200; //cambiamos a un menor grosor de letra
   font-size: 1.2em;
   line-height: 1.5em;
+  h1,h2{
+    font-weight: 200;
+    font-size: $big;
+    letter-spacing: 0.3em;
+    line-height: 1.5em;
+  }
 }
 @mixin text-center{
   text-align: center;
@@ -35,4 +41,7 @@
   z-index: 2;
   @include text-center; //estamos importando un mixin
   color:rgba($white,9);
+}
+@mixin transition{
+  transition: all 0.6s ease-out;
 }

@@ -24,12 +24,9 @@ figure{
   &:hover{
   }
 }
-
 .full-height{
   min-height: 100vh;
 }
-
-
 .btn{
   padding: $large-padding;
   position: relative;
@@ -63,7 +60,7 @@ figure{
 }
 .container{
   grid-column: span 12;//le indicamos al contenedor que ocupe las 12 columnas que existen
-  padding: $big-padding;
+  // padding: $big-padding;
 }
 
 .cover{
@@ -115,9 +112,84 @@ figure{
     }
     .image{
       grid-area: image;
-      //grid-column-start: 5; //le indicamos que la imagen empezara en la columna 5
-      //grid-column-end: 12; //le indiamos que la imagen termia en la comuna 12
+      margin: auto;
+      padding: 10px;
+      // grid-column-start: 5; //le indicamos que la imagen empezara en la columna 5
+      // grid-column-end: 12; //le indiamos que la imagen termia en la comuna 12
     }
+}
+
+.slider{
+  .controls{
+    display: none;
+    text-align: right;
+    margin-bottom: 10px;
+    padding-right: 1em;
+    .right-arrow,.left-arrow{
+      height: 50px;
+      @include transition;
+      transition-duration: 0.2s;
+      cursor: pointer;
+      &:hover{
+        opacity: 0.2;
+      }
+    }
+    .left-arrow{
+      margin-right: 1em;
+      transform: rotate(180deg);
+    }
+  }
+  .image{//con esto corregimos el brinco del slide entre cada imagen
+    min-height: 100vh;
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+  }
+  header{
+    background-color: $gunmetal;
+    color:$white;
+    padding: $big-padding;
+    transform: translateY(40px);
+    width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    z-index: 2;
+    position: relative;
+    h2{
+      margin: 0px;
+    }
+    .separator{
+      text-align: right;
+      padding-right: 159px;
+      position: relative;
+      color:white;
+      &::after{
+        position: absolute;
+        content: '';
+        height: 3px;
+        width: 140px;
+        background-color: currentColor;
+        top: 0.7em;
+        right: 0px;
+      }
+
+    }
+  }
+}
+
+#slider-text-content{
+  @include transition;
+  &.hide{
+    opacity:(0);
+    transform: translateX(100px);
+  }
+}
+
+#slider-image{
+  @include transition;
+  &.hide{
+  opacity: 0;
+  }
 }
 
 .mission{
@@ -162,6 +234,17 @@ figure{
     grid-template-areas: //nospermite definir las areas de nuestro elemento, c/u de las areas se coloca en un to-upper-case($string);
       " title title title image image image image image image"
   }
+  .slider{
+    align-items: center;
+    header{
+      transform: translateX(100px);
+      width: 100%;
+      min-height: 350px;
+
+    }
+  }
+
+
   .social{
     a{
       display: inline-block;
