@@ -8,7 +8,7 @@ const elements = [
  {
    title: 'Lorem Ipsum 2',
    subtitle: 'Ipsum 2',
-   image: '../public/images/5.jpg',
+   image: '../public/images/6.jpg',
    text:' 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.'
  },
  {

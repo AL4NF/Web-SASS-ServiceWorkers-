@@ -1,262 +1,263 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700&display=swap');//importamos nuestra fuente desde GoogleFonts
-
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700');
 
 @import './modules/_variables.scss';
 @import './modules/_mixins.scss';
 
 *{
-  margin: 0;
-  padding: 0;
+  padding: 0px;
+  margin: 0px;
 }
-
-body{
+html,body{
   font-family: 'Source Sans Pro', sans-serif;
+  margin:0px;
   background-color: gray;
 }
+
 img{
   max-width: 100%;
 }
+
 figure{
   position: relative;
   max-height: 100%;
   margin: 0px;
   //selector anidado
   figcaption{
-    @include caption;
+    @include  caption;
   }
-  //el '&' hace referencia al selector en donde nos encotramos, en este caso a 'figure'
-  &:hover{
+  img{
   }
 }
 .full-height{
   min-height: 100vh;
 }
+
 .btn{
   padding: $large-padding;
   position: relative;
-  color: $white !important;
-  text-decoration:none;
+  color: $black !important;
+  text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 2px;
   box-sizing: border-box;
+  z-index: 1;
   &:before{
-    content: ''; //para que se vea el elemento debe tener algun valor aunque sea un string vacio
-    position:absolute;
+    //para que se vea el elemento debe tener algun valor aunque sea un string vacio
+    content: '';
+    position: absolute;
+    width: 100%;
     left: 0px;
     bottom: 0px;
-    background-color: $gunmetal;
-    width: 100%;
     height: 40%;
     z-index: -1;
+    background-color: $gunmetal;
     transition: all 0.15s ease-out;
   }
   &:hover::before{
-    height:100%;
+    height: 100%;
   }
 }
 
-//grid es una manera de dividir en tablas nuestra pagina
 .grid{
-  //@include full; // estamos importando el mixin llamado full(para cambiar caracteristcas desde otro archivo sass)
   display: grid;
   //grid-template-columns: 250px 250px; nos agrega 2 columnas de 250px c/u
-  grid-template-columns: repeat(12,1fr); //propiedad que nos agrega 12 columnas(lo usa bootstrap)
+  grid-template-columns: repeat(12,1fr);
 }
 
 .menu{
   position: fixed;
   top:2em;
   right: 2em;
+  border-radius: 50%;
   height: 60px;
   width: 60px;
+  border: solid 1px blue;
+  @include center-vertical-horizontal;
+  background-color: white;
   @include transition;
   transition-duration: 0.15s;
   cursor: pointer;
   &:hover{
     background-color: lightblue;
   }
+  img{
+    height: 50px;
+  }
 }
 
 .menu-screen{
-  background-color: white;
+  z-index: 10;
+  background-color: $gunmetal;
   height: 100vh;
   width: 100vw;
   position: fixed;
-  z-index: 4;
   top:-101vh;
+  @include center-vertical-horizontal;
   @include transition;
-  @include center-vertical-horizontal
 
   .close{
     position: absolute;
-    top:1em;
-    right: 1em;
+    top:2em;
+    right: 2em;
+    background-color:rgba(lightblue,0.9);
+    border-radius: 25px;
     img{
-      width: 45px;
+      height: 45px;
     }
   }
 
   &.active{
     top:0;
-
   }
+
   a{
-    text-decoration: none;
     display: block;
+    text-decoration: none;
     @include text-center;
     position: relative;
     margin-top: 1em;
-    &:first-of-type{margin-top: 0}
+    &:first-of-type{ margin-top:0; }
     .main{
-      display: block;
+      display:  block;
       font-size: 2em;
-      color:blue;
+      color: lightblue;
     }
     span:not(.main){
+      color: red;
+      opacity: 0;
       @include transition;
       transition-duration: 0.2s;
-      color:darkblue;
-      opacity: 0;
-   }
-   &::after{
-     content:'';
-     position: absolute;
-     top: 1.2em;
-     left:0;
-     width: 100%;
-     height: 2px;
-     background-color: red;
-     @include transition;
-     transition-duration: 0.2s;
-     transform: scale(0);
-   }
-   &:hover span.main{
-     color: black;
-   }
-   &:hover::after{
-     transform: scale(1);
-   }
-   &:hover span:not(.main){
-     opacity: 1;
-   }
+    }
+
+    &::after{
+      content: '';
+      position: absolute;
+      top:1.2em;
+      left:0;
+      width: 0%;
+      height: 2px;
+      background-color: blue;
+      @include transition;
+      transition-duration: 0.2s;
+      // transform: scale(0);
+    }
+
+    &:hover span.main{
+      color: blue !important;
+    }
+
+    &:hover::after{
+      width: 100%;
+    }
+
+    &:hover span:not(.main){
+      opacity: 1;
+    }
+  }
+}
+.grid-main-area{
+  display: grid;
+  grid-template-columns: repeat(9,1fr);
+  margin-top: $big-margin-top;
+  margin-bottom: $big-margin-top;
+  grid-template-areas:
+  "title title title title title title title title title"
+  "image image image image image image image image image";
+  .text{
+    grid-area: title;
+    @include main-text;
+  }
+  .image{
+    grid-area: image;
   }
 }
 
 .container{
-  grid-column: span 12;//le indicamos al contenedor que ocupe las 12 columnas que existen
-  // padding: $big-padding;
+  grid-column: span 12;
+  padding: $big-padding;
 }
 
 .cover{
   @include absolute-cover;
-  min-height: 400px;
-  background-color: red;
+  min-height: 500px;
   background-size: cover;
-  background-position:center;
+  background-position: center;
+
   &.parallax{
-    background-image: url(../../public/images/3.jpg);
     background-attachment: fixed;
-    position:relative;
+    background-image:url(../../public/images/3.jpg);
+    position: relative;
     p{
       @include caption;
-      background-color: rgba($gunmetal, 0.7);
+      background-color:rgba($gunmetal,0.8);
       display: block;
       width: 100%;
-      box-sizing: border-box;//hace que no se desborde[toma en ceunta el tamaño total e incluye el padding heredado]
-      left: 0;
+      box-sizing: border-box;
+      left:0px;
       @include text-right;
+
       span{
         display: block;
         font-size: 0.5em;
         font-weight: 200;
         margin-top: 6px;
       }
-      }
+    }
   }
-}
-
-.grid-main-area{
-  display: grid;
-  grid-template-columns: repeat(9,1fr);
-   margin-top: $big-margin-top;
-  margin-bottom: $default-margin-top;
-  grid-template-areas: //nospermite definir las areas de nuestro elemento, c/u de las areas se coloca en un to-upper-case($string);
-    "title title title title title title title title title"
-    "image image image image image image image image image ";
-    .text{
-      @include main-text
-      grid-area: title;
-      h1{
-        line-height: 1.2em;
-        letter-spacing: 0.3em;
-        font-weight:inherit; //le indicamos que herede la propiedad de supadre 'text' de font-weight:200
-        font-size: $big;
-      }
-      //grid-column: 1 / 5; //es una shorthand, primero indicamos en donde empieza el texto y lueo en dpmde finaliza
-    }
-    .image{
-      grid-area: image;
-      margin: auto;
-      padding: 10px;
-      // grid-column-start: 5; //le indicamos que la imagen empezara en la columna 5
-      // grid-column-end: 12; //le indiamos que la imagen termia en la comuna 12
-    }
 }
 
 .slider{
   .controls{
-    display: none;
     text-align: right;
     margin-bottom: 10px;
-    padding-right: 1em;
+    padding-right: 2em;
+    display: none;
     .right-arrow,.left-arrow{
-      height: 50px;
+      height: 70px;
       @include transition;
-      transition-duration: 0.2s;
+      transition-duration: 0.15s;
       cursor: pointer;
       &:hover{
         opacity: 0.2;
       }
     }
     .left-arrow{
-      margin-right: 1em;
+      margin-right: 1.5em;
       transform: rotate(180deg);
     }
   }
-  .image{//con esto corregimos el brinco del slide entre cada imagen
+  .image{
     min-height: 100vh;
     display: flex;
-    // justify-content: center;
     align-items: center;
   }
   header{
     background-color: $gunmetal;
-    color:$white;
+    color: $white;
     padding: $big-padding;
     transform: translateY(40px);
     width: 90%;
-    margin: 0 auto;
     box-sizing: border-box;
-    z-index: 2;
+    margin: 0 auto;
+    z-index:2;
     position: relative;
     h2{
       margin: 0px;
     }
     .separator{
       text-align: right;
-      padding-right: 159px;
+      padding-right: 150px;
       position: relative;
-      color:white;
+      color:$white;
       &::after{
         position: absolute;
         content: '';
         height: 3px;
         width: 140px;
         background-color: currentColor;
-        top: 0.7em;
+        top:0.7em;
         right: 0px;
       }
-
     }
   }
 }
@@ -264,15 +265,14 @@ figure{
 #slider-text-content{
   @include transition;
   &.hide{
-    opacity:(0);
+    opacity: 0;
     transform: translateX(100px);
   }
 }
-
 #slider-image{
   @include transition;
   &.hide{
-  opacity: 0;
+    opacity: 0;
   }
 }
 
@@ -281,64 +281,78 @@ figure{
   .container{
     @include main-text;
     font-size: 1.1em;
-
-    p{
-      line-height: 2em;
-    }
     figure{
       float: right;
+      margin-left: 20px;
     }
+    p{
+      line-height: 2em;
+      &:nth-of-type(1){
+        margin-bottom: 3em;
+        position: relative;
+
+        &::after{
+          content: '';
+          background-color: blue;
+          position: absolute;
+          bottom: -1.5em;
+          height: 5px;
+          width: 70%;
+          z-index: -1;
+        }
+      }
+    }
+
   }
 }
-
-
 .social{
   margin-top: $big-margin-top;
   margin-bottom: $big-margin-top;
   @include text-center;
-
   p.title{
     font-weight: 200;
     font-size: 2.5em;
   }
   a{
     display: block;
+
     max-width: 150px;
     margin: 1em auto;
   }
-
 }
 
-@media (min-width: 960px) {
+@media (min-width: 960px){
   .container{
-    grid-column: 2 / 12; //le indicamos que empiece en la columnas 2 y termine en la 12
+    grid-column: 2 / 12;
   }
+
   .grid-main-area{
     display: grid;
     grid-template-columns: repeat(9,1fr);
-    grid-template-areas: //nospermite definir las areas de nuestro elemento, c/u de las areas se coloca en un to-upper-case($string);
-      " title title title image image image image image image"
+    grid-template-areas:
+    "title title title image image image image image image";
   }
+
   .slider{
     align-items: center;
     header{
       transform: translateX(100px);
       width: 100%;
       min-height: 350px;
-
     }
   }
-
 
   .social{
     a{
       display: inline-block;
-      margin-top: 0px;
-      margin-right: 90px;
+      margin-top:0px;
+      margin-left: 90px;
+      z-index:1 ;
 
-      &:last-of-type{
-        margin-right: 0px;
+      &:first-of-type{
+        margin-left: 0px;
       }
     }
   }
+
 }

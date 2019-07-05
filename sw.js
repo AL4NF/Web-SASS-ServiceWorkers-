@@ -1,14 +1,14 @@
 const CACHE_NAME = 'STORIES_CACHE-v2';
-
-self.addEventListener('install',function(){//self es el objeto que usamos para los ServiceWorksrs
+  //self es el objeto que usamos para los ServiceWorksrs
+self.addEventListener('install',function(){
   // Guardar archivos iniciales
 
   caches.open(CACHE_NAME).then(function(cache){
-    cache.addAll(['/index.html']);
+    cache.addAll(['/index.html','/dist/javascript/bundle.js','/public/images/1.jpg']);
   })
 });
 
-//mantiene actualizado el cache y elimina el viejo
+ //mantiene actualizado el cache y elimina el viejo
 self.addEventListener('activate',function(ev){
   ev.waitUntil(
     caches.keys().then(function(cacheNames){
@@ -21,8 +21,7 @@ self.addEventListener('activate',function(ev){
     })
   );
 });
-
-//hace la magia del cargado sin conexion a internet
+  //hace la magia del cargado sin conexion a internet
 self.addEventListener('fetch',function(ev){
   ev.respondWith(
     caches.match(ev.request)
