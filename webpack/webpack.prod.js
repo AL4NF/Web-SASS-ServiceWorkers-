@@ -5,13 +5,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
   filename: 'dist/css/[name].[contenthash].css'
-})
+});
 
 module.exports = merge(common,{
   output:{
     publicPath: '.'
   }
-  module:{
+module:{
     rules:[
       {
         test: /\.scss$/,
@@ -22,6 +22,7 @@ module.exports = merge(common,{
           ]
         })
       },
+
       {
         test: /\.html$/,
         use:[
@@ -30,5 +31,6 @@ module.exports = merge(common,{
       }
     ]
   },
+
   plugins: [extractSass]
 });
